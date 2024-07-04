@@ -29,6 +29,9 @@ struct PEFile {
 
         return h;
     }
+
+    static DWORD readPEMarker(std::istream& fp);
+
 };
 
 #endif // LDD_PE_FILE_H

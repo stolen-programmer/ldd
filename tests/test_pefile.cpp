@@ -61,4 +61,11 @@ TEST_CASE("读取PE x64")
         REQUIRE(h.e_magic == *(uint16_t*)&MZ);
         REQUIRE(h.e_lfanew == 248);
     }
+
+    SECTION("PE标记")
+    {
+        uint8_t PE[] = { 'P', 'E' };
+        REQUIRE(PEFile::readPEMarker(fp) == (*(uint16_t*)&PE));
+    }
+
 }

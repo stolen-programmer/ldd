@@ -12,3 +12,14 @@
 // 项目头
 #include "pefile.h"
 
+auto PEFile::readPEMarker(std::istream& fp) -> DWORD
+{
+    auto dos_h = readHeader<IMAGE_DOS_HEADER>(fp);
+
+    DWORD Signature; // PE 标记
+    fp.seekg(dos_h.e_lfanew);
+    fp.read((char*)&Signature, sizeof(Signature));
+
+    return Signature;
+}
+
