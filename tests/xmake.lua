@@ -5,6 +5,7 @@ for _, file in ipairs(os.files("test_*.cpp")) do
      target(name)
         set_kind("binary")
         set_languages("c++20")
+        set_encodings("source:utf-8")
     
         set_default(false)
         add_files(name .. ".cpp")
@@ -12,6 +13,6 @@ for _, file in ipairs(os.files("test_*.cpp")) do
         add_files(name .. ".rc")
         add_tests("default")
         add_includedirs("../include")
-        add_packages("catch2", "fmt")
+        add_packages("catch2", "spdlog")
          
 end

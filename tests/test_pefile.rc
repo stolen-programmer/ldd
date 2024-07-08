@@ -1,3 +1,5 @@
 #include "tests/test_pefile_resource.h"
 
 PEFileRC RCDATA "assets/x64/test_pefile.exe"
+
+PEFileMain RCDATA "assets/x64/main.exe"

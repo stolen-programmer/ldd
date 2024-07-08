@@ -1,16 +1,22 @@
 #pragma once
 
+#ifndef LDD_PE_FILE_H
+#define LDD_PE_FILE_H
+
 //
 // Created by 20264 on 2024/7/1.
 //
 
-#ifndef LDD_PE_FILE_H
-#define LDD_PE_FILE_H
+#include <cstdint>
+#include <istream>
+#include <memory>
+#include <winnt.h>
 
 // 三方库
 
 // 标准库
 #include <fstream>
+#include <vector>
 
 // 系统头
 #include <Windows.h>
@@ -32,6 +38,23 @@ struct PEFile {
 
     static DWORD readPEMarker(std::istream& fp);
 
+    template <>
+    static IMAGE_FILE_HEADER readHeader(std::istream& fp);
+
+    template <>
+    static IMAGE_OPTIONAL_HEADER64 readHeader(std::istream& fp);
+
+    template <>
+    static IMAGE_OPTIONAL_HEADER32 readHeader(std::istream& fp);
+
+    static std::unique_ptr<IMAGE_SECTION_HEADER[]> sectionTable(std::istream& fp);
+
+    static uint64_t sizeofHeaders(std::istream& fp);
+
+    static uint64_t sizeofImage(std::istream& fp);
+
+    static std::vector<uint8_t> fileToImage(std::istream& fp);
+    static void imageToFile(const std::vector<uint8_t>& data, std::vector<uint8_t>& file_buffer, uint64_t file_size);
 };
 
 #endif // LDD_PE_FILE_H
